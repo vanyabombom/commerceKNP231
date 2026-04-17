@@ -1,0 +1,35 @@
+.product-info {
+    background-color: #1d1d1d;
+}
+.recommended-box {
+    position: relative;
+}
+.recommended-container {
+    overflow-x: hidden;
+}
+.recommended-container .product-card {
+    width: 25%;
+}
+.recommended-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 120%;
+}
+.scroll-left, .scroll-right {
+    padding: 1em;
+    background-color: #88888899;
+    border-radius: 10px;
+    position: absolute;
+    top: 130px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;   
+}
+.scroll-left {
+    left: 10px;
+}
+.scroll-right {
+    right: 10px;
+}
