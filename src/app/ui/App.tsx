@@ -33,7 +33,7 @@ export default function App() {
   };
 
   const showToast = (data: ToastData) => {
-      setToastQueue([data, ...toastQueue]);
+      setToastQueue(q => [data, ...q]);
   };
 
   useEffect(() => {
@@ -54,6 +54,15 @@ export default function App() {
   useEffect(() => {  // useEffect з порожнім масивом "спостереження"
     // виконується одноразово коли елемент вбудовується у DOM
     console.log("App started");
+
+    const handleAuthError = () => {
+      window.localStorage.removeItem("user-231");
+      setUser(null);
+      GlobalState.token = null;
+      showToast({ message: "Сесію завершено через помилку авторизації", timeout: 5000 });
+    };
+    window.addEventListener("auth-error", handleAuthError);
+
     // на старті перевіряємо наявність у постійному сховищі збережених даних
     const savedUser = window.localStorage.getItem("user-231");
     if(savedUser) {
@@ -74,6 +83,7 @@ export default function App() {
 
     // повернена дія буде виконана при руйнуванні елемента (вилучення з DOM)
     return () => {
+      window.removeEventListener("auth-error", handleAuthError);
       console.log("App finished");
     };
   }, []);

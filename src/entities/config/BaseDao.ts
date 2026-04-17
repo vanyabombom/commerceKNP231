@@ -24,7 +24,11 @@ export default class BaseDao {
               }
             }
           }
-          fetch(url, init).then(resolve).catch(reject);
-        });
+          fetch(url, init).then(r => {
+            if (r.status === 401) {
+              window.dispatchEvent(new Event("auth-error"));
+            }
+            resolve(r);
+          }).catch(reject);
       };
 }

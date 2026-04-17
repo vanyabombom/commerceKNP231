@@ -5,6 +5,7 @@ import ButtonTypes from "../../../features/buttons/types/ButtonTypes";
 import type CartType from "../../../entities/cart/model/CartType";
 import CartDao from "../../../entities/cart/api/CartDao";
 import { Link } from "react-router-dom";
+import BaseDao from "../../../entities/config/BaseDao";
 
 export default function Profile() {
     const { user, setUser, showToast } = useContext(AppContext);
@@ -50,7 +51,7 @@ export default function Profile() {
             headers['Authorization'] = 'Bearer ' + token;
         }
 
-        fetch("https://localhost:7015/api/product/123", {
+        BaseDao.request("api://product/123", {
             headers: headers
         })
             .then(async r => {
