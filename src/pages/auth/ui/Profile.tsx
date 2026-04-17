@@ -15,7 +15,6 @@ export default function Profile() {
             setHistory([]);
         }
         else {
-            // setTimeout(() => CartDao.loadHistory().then(setHistory), 10);
             CartDao.loadHistory().then(setHistory);
         }
     }, [user]);
@@ -36,11 +35,9 @@ export default function Profile() {
                 token = null;
                 break;
             case "malformed":
-                // Send only first 10 characters of the token
                 token = user?.token?.substring(0, 10) ?? "broken";
                 break;
             case "invalid":
-                // Change the signature or core of the token slightly
                 token = (user?.token ?? "") + "modified";
                 break;
         }
@@ -64,7 +61,6 @@ export default function Profile() {
                         const errorData = await r.json();
                         if (errorData.message) errorMsg += ` - ${errorData.message}`;
                     } catch {
-                        // JSON parsing failed, just use status
                     }
                     showToast({ message: errorMsg, timeout: 5000 });
                 }
