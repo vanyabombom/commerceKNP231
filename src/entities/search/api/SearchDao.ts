@@ -1,17 +1,17 @@
 import type ISearchResult from "../model/ISearchResult";
 
 export default class SearchDao {
-    static GetSearchResult(data:string): Promise<ISearchResult> {
-        return new Promise<ISearchResult>((resolve, reject) => {
+    static GetSearchResult(_data:string): Promise<ISearchResult> {
+        return new Promise<ISearchResult>((resolve) => {
             setTimeout(
-                () => { 
+                () => {
                     resolve({
-                        products: [], 
+                        products: [],
                         sections: []
-                    }); 
+                    });
                 },
                 1300
             );
-        }); 
+        });
     }
 }

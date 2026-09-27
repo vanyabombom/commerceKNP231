@@ -8,6 +8,7 @@ import Product from "../../pages/product/Product";
 import Section from "../../pages/section/Section";
 import Search from "../../pages/search/Search";
 import NotFound from "../../pages/not_found/NotFound";
+import Back from "../../pages/back/Back";
 
 export default function AppRouter() {
     return <BrowserRouter>
@@ -21,6 +22,7 @@ export default function AppRouter() {
         <Route path='product/:slug' element={<Product />} />
         <Route path='search/:slug' element={<Search />} />
         <Route path='section/:slug' element={<Section />} />
+        <Route path='back' element={<Back />} />
 
         <Route path='*' element={<NotFound />} />
       </Route>
