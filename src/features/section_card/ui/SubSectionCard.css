@@ -1,0 +1,104 @@
+﻿/* Стилізація карток підгруп товарних груп */
+.subsection-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(145deg, #25252a 0%, #1a1a1e 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 10px 8px 10px 8px;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.subsection-card:hover {
+    background: linear-gradient(145deg, #2d2d35 0%, #222228 100%);
+    border-color: #3b82f6;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
+}
+
+.subsection-badge {
+    align-self: flex-start;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #93c5fd;
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    padding: 2px 6px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    line-height: 1;
+}
+
+.subsection-img-wrapper {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px 0;
+    position: relative;
+}
+
+.subsection-img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+    transition: transform 0.3s ease;
+}
+
+.subsection-card:hover .subsection-img-wrapper img {
+    transform: scale(1.08);
+}
+
+.subsection-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    margin-top: 6px;
+}
+
+.subsection-title {
+    color: #f1f5f9;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 85%;
+    line-height: 1.2;
+    transition: color 0.2s ease;
+}
+
+.subsection-card:hover .subsection-title {
+    color: #60a5fa;
+}
+
+.subsection-arrow {
+    font-size: 0.85rem;
+    color: #64748b;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.2s ease;
+}
+
+.subsection-card:hover .subsection-arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: #60a5fa;
+}

@@ -1,12 +1,12 @@
-type ProductType = {
+﻿type ProductType = {
     id:       string,
-    title:     string,
+    title:    string,
     price:    number,
-    discount: number|null,
+    discount?: number|null,
     imageUrl: string,
-    rating:   number|null,
+    rating?:   number|null,
     slug:     string|undefined,
-    stock?:   number,  // наявність (у шт)
+    stock?:   number,
 }
 
 export type { ProductType };

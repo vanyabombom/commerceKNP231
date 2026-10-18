@@ -1,178 +1,305 @@
-import type { HomePageSection } from "../../../features/section_card/types/section";
+﻿import type { HomePageSection } from "../../../features/section_card/types/section";
 import type { SectionType } from "../model/SectionType";
 
 export default class SectionDao {
-    static cacheSections:Array<HomePageSection>|undefined;
+    static cacheSections: Array<HomePageSection> | undefined;
 
     static getSections() {
-        return new Promise<Array<HomePageSection>>((resolve, _) => {
-            fetch("https://localhost:7015/api/sections")
-            .then(r => r.json())
-            .then(resolve);
+        return new Promise<Array<HomePageSection>>((resolve) => {
+            fetch("http://localhost:8080/java231web/section")
+                .then(r => {
+                    if (r.ok) return r.json();
+                    throw new Error("HTTP " + r.status);
+                })
+                .then(j => {
+                    const data = Array.isArray(j) ? j : (j && Array.isArray(j.data) ? j.data : null);
+                    if (data && data.length > 0) {
+                        resolve(data);
+                    } else {
+                        SectionDao.getSectionsMock().then(resolve);
+                    }
+                })
+                .catch(() => {
+                    fetch("https://localhost:7015/api/sections")
+                        .then(r => r.json())
+                        .then(j => {
+                            const data = Array.isArray(j) ? j : (j && Array.isArray(j.data) ? j.data : null);
+                            if (data && data.length > 0) {
+                                resolve(data);
+                            } else {
+                                SectionDao.getSectionsMock().then(resolve);
+                            }
+                        })
+                        .catch(() => {
+                            SectionDao.getSectionsMock().then(resolve);
+                        });
+                });
         });
     }
 
     static getSectionsMock() {
-        return new Promise<Array<HomePageSection>>((resolve, _) => {
-            if(typeof SectionDao.cacheSections != 'undefined') {
+        return new Promise<Array<HomePageSection>>((resolve) => {
+            if (typeof SectionDao.cacheSections !== 'undefined') {
                 resolve(SectionDao.cacheSections);
+            } else {
+                setTimeout(() => {
+                    SectionDao.cacheSections = [
+                        {
+                            imageUrl: "/img/Frame-8full.png.webp",
+                            title: "Смартфони",
+                            slug: "android"
+                        },
+                        {
+                            imageUrl: "/img/wide-garminfull.png.webp",
+                            title: "Garminfull",
+                            slug: "garminfull"
+                        },
+                        {
+                            imageUrl: "/img/image24full.png.webp",
+                            title: "Телевізори",
+                            slug: "tv"
+                        },
+                        {
+                            imageUrl: "/img/big-ps5full.png.webp",
+                            title: "Консолі",
+                            slug: "consoles",
+                            children: [
+                                {
+                                    imageUrl: "/img/big-ps5full.png.webp",
+                                    title: "Ігрові консолі",
+                                    slug: "consoles"
+                                },
+                                {
+                                    imageUrl: "/img/gaming-micefull.png.webp",
+                                    title: "Клавіатури",
+                                    slug: "gaming-kb"
+                                },
+                                {
+                                    imageUrl: "/img/gaming-acsfull.png.webp",
+                                    title: "Джойстики",
+                                    slug: "gaming-joystick"
+                                },
+                                {
+                                    imageUrl: "/img/headphonesfull.png.webp",
+                                    title: "Навушники",
+                                    slug: "headphones"
+                                }
+                            ]
+                        },
+                        {
+                            imageUrl: "/img/wide-applefull.png.webp",
+                            title: "Apple",
+                            slug: "apple"
+                        },
+                        {
+                            imageUrl: "/img/wide-dysonfull.png.webp",
+                            title: "Dyson",
+                            slug: "dyson"
+                        },
+                        {
+                            imageUrl: "/img/wide-noutfull.png.webp",
+                            title: "Ноутбуки",
+                            slug: "notebooks"
+                        },
+                        {
+                            imageUrl: "/img/wide-photoofull.png.webp",
+                            title: "Фото",
+                            slug: "photo"
+                        }
+                    ];
+                    resolve(SectionDao.cacheSections);
+                }, 50);
             }
-            else setTimeout(() => {
-                SectionDao.cacheSections = [
-        {
-            "imageUrl": "/img/wide-applefull.png.webp",
-            "title": "Apple",
-            "slug": "apple"
-        },
-        {
-            "imageUrl": "/img/big-center-airpods-2025full.png.webp",
-            "title": "AirPods",
-            "slug": "airpods"
-        },
-        {
-            "imageUrl": "/img/big-2025-iphonefull.png.webp",
-            "title": "iPhone",
-            "slug": "iphonefull"
-        },
-        {
-            "imageUrl": "/img/Frame-8full.png.webp",
-            "title": "б/у Apple",
-            "slug": "applebw"
-        },
-        {
-            "imageUrl": "/img/android-newfull.png.webp",
-            "title": "Смартфони",
-            "slug": "android"
-        },
-        {
-            "imageUrl": "/img/wide-dysonfull.png.webp",
-            "title": "Dyson",
-            "slug": "dysonfull"
-        },
-        {
-            "imageUrl" : "/img/wide-garminfull.png.webp",
-            "title": "garminfull",
-            "slug": "garminfull"
-        },
-        {
-            "imageUrl" : "/img/big-kitchenfull.png.webp",
-            "title": "kitchenfull",
-            "slug": "kitchenfull"
-        },
-        {
-            "imageUrl" : "/img/home-carefull.png.webp",
-            "title": "home-carefull",
-            "slug": "home-carefull"
-        },  
-        {
-            "imageUrl" : "/img/gaming-micefull.png.webp",
-            "title": "micefull",
-            "slug": "micefull"
-        },   
-        {
-            "imageUrl" : "/img/gaming-acsfull.png.webp",
-            "title": "acsfull",
-            "slug": ""
-        },     
-        {
-            "imageUrl" : "/img/headphonesfull.png.webp",
-            "title": "headphonesfull",
-            "slug": ""
-        },
-        {
-            "imageUrl": "/img/big-ps5full.png.webp",
-            "title": "Консоли",
-            "slug": ""
-        },
-        {
-            "imageUrl": "/img/image19full.png.webp",
-            "title": "Ноутбуки",
-            "slug": ""
-
-        },
-        {
-            "imageUrl": "/img/image24full.png.webp",
-            "title": "Телевизоры",
-            "slug": ""
-
-        },
-        {
-            "imageUrl": "/img/wide-noutfull.png.webp",
-            "title": "Экшн камеры",
-            "slug": ""
-
-        },
-        {
-            "imageUrl": "/img/wide-photoofull.png.webp",
-            "title": "Фотоапараты",
-            "slug": ""
-
-        },
-        {
-            "imageUrl": "/img/image24full.png.webp",
-            "title": "Мониторы",
-            "slug": ""
-        },
-    ];
-                resolve(SectionDao.cacheSections);
-            }, 300);
         });
     }
 
-    static getSection(slug:string) {
+    static getSection(slug: string) {
         return new Promise<SectionType>((resolve, reject) => {
-            fetch("https://localhost:7015/api/sections/" + slug)
-            .then(r => r.json())
-            .then(resolve)
-            .catch(reject);
+            fetch("http://localhost:8080/java231web/section/" + slug)
+                .then(r => {
+                    if (r.ok) return r.json();
+                    throw new Error("HTTP " + r.status);
+                })
+                .then(j => {
+                    const section = j && j.data ? j.data : j;
+                    if (section && (section.products || section.children)) {
+                        resolve(section);
+                    } else {
+                        SectionDao.getSectionMock(slug).then(resolve).catch(reject);
+                    }
+                })
+                .catch(() => {
+                    fetch("https://localhost:7015/api/sections/" + slug)
+                        .then(r => r.json())
+                        .then(j => {
+                            const section = j && j.data ? j.data : j;
+                            if (section && section.products) {
+                                resolve(section);
+                            } else {
+                                SectionDao.getSectionMock(slug).then(resolve).catch(reject);
+                            }
+                        })
+                        .catch(() => {
+                            SectionDao.getSectionMock(slug).then(resolve).catch(reject);
+                        });
+                });
         });
     }
 
-    static getSectionMock(slug:string) {
-        return new Promise<SectionType>((resolve, reject) => {
+    static getSectionMock(slug: string) {
+        return new Promise<SectionType>((resolve) => {
             setTimeout(() => {
-                switch(slug) {
-                    case 'apple': resolve({
-                        products: [
-                            { id: "1", title: "Apple iPhone 17 Pro Max 256GB (Cosmic Orange)", 
-                                slug: "apple-iphone-17-pro-max-256gb-orange",
-                                price: 73499, discount: 6050, rating: 2, 
-                                imageUrl: "/img/CosmicOrange-1397x1397.png.webp"},
-                            { id: "2", title: "Навушники Apple AirPods Pro 3 (MFHP4) (2025)", 
-                                slug: "navushnyky-apple-airpods-pro-3",
-                                price: 11899, discount: 2200, rating: 4, 
-                                imageUrl: "/img/vbfbg-1397x1397.png.webp"},
-                            { 
-                                id: "814897", title: "Apple iPhone 15 256GB (Pink)", 
-                                slug: "apple-iphone-15-256gb--pink-",
-                                price: 37999, discount: 2800, rating: 3, 
-                                imageUrl: "/img/pink (1)-1397x1397.jpeg.webp",
-                                stock: 0
-                            },
-                            { id: "842447", title: "MacBook Air 13 Retina, Midnight, 256GB, 10 CPU / 8 GPU, 16GB RAM with Apple M4 (2025) (MW123)", 
-                                slug: "macbook-air-13-retina-midnight-256gb-8-cpu--10-gpu-16gb-ram-with-apple-m4-2025-mw123",
-                                price: 41999, discount: 8000, rating: 1, 
-                                imageUrl: "/img/midnight-1-1397x1397.png.webp",
-                                stock: 10
-                            },
-                            { id: "855417", title: "Apple iPhone 17 Pro Max 512GB (Deep Blue)", 
-                                slug: "apple-iphone-17-pro-max-512gb-dark-blue",
-                                price: 83699, discount: 13050, rating: 3, 
-                                imageUrl: "/img/deepBlue-(4)-1397x1397.png.webp1",
-                                stock: 3
-                            },
-                            { id: "842247", title: "Apple iPad 11 128GB, Wi-Fi (Silver) (2025) (MD3Y4)", 
-                                slug: "apple-ipad-11-128gb-wi-fi-silver-2025-md3y4",
-                                price: 17199, discount: 1300, rating: 5, 
-                                imageUrl: "/img/ipad-2022-hero-silver-wifi-selec-1397x1397.jpg.webp",
-                                stock: 10
-                            },
-                        ]
-                    }); break;
-                    default: reject('"Slug not found"');
+                switch (slug) {
+                    case 'consoles':
+                        resolve({
+                            title: "Консолі",
+                            slug: "consoles",
+                            children: [
+                                {
+                                    imageUrl: "/img/gaming-acsfull.png.webp",
+                                    title: "Джойстики",
+                                    slug: "gaming-joystick"
+                                },
+                                {
+                                    imageUrl: "/img/gaming-micefull.png.webp",
+                                    title: "Клавіатури",
+                                    slug: "gaming-kb"
+                                },
+                                {
+                                    imageUrl: "/img/headphonesfull.png.webp",
+                                    title: "Навушники",
+                                    slug: "headphones"
+                                }
+                            ],
+                            products: [
+                                {
+                                    id: "ps5-pro",
+                                    title: "Ігрова приставка Sony PlayStation 5 Pro 2TB",
+                                    slug: "sony-playstation-5-pro-2tb",
+                                    price: 34999,
+                                    rating: 5,
+                                    discount: null,
+                                    imageUrl: "/img/big-ps5full.png.webp"
+                                },
+                                {
+                                    id: "switch-2",
+                                    title: "Ігрова консоль Nintendo Switch 2",
+                                    slug: "nintendo-switch-2",
+                                    price: 18999,
+                                    rating: 4,
+                                    discount: null,
+                                    imageUrl: "/img/vbfbg-1397x1397.png.webp"
+                                },
+                                {
+                                    id: "steam-deck",
+                                    title: "Ігрова консоль Valve Steam Deck OLED 512GB",
+                                    slug: "valve-steam-deck-oled-512gb",
+                                    price: 27999,
+                                    rating: 5,
+                                    discount: 1000,
+                                    imageUrl: "/img/Frame-8full.png.webp"
+                                }
+                            ]
+                        });
+                        break;
+                    case 'gaming-joystick':
+                    case 'joysticks':
+                        resolve({
+                            title: "Джойстики",
+                            slug: "gaming-joystick",
+                            products: [
+                                {
+                                    id: "joy-white",
+                                    title: "Геймпад бездротовий білий",
+                                    slug: "joystick-white",
+                                    price: 2499,
+                                    rating: 4,
+                                    discount: null,
+                                    imageUrl: "/img/gaming-acsfull.png.webp"
+                                },
+                                {
+                                    id: "joy-dualsense",
+                                    title: "Геймпад DualSense Red",
+                                    slug: "joystick-dualsense-red",
+                                    price: 2999,
+                                    rating: 5,
+                                    discount: 200,
+                                    imageUrl: "/img/gaming-acsfull.png.webp"
+                                },
+                                {
+                                    id: "joy-pink",
+                                    title: "Геймпад Pink Edition",
+                                    slug: "gamepad-pink",
+                                    price: 2799,
+                                    rating: 4,
+                                    discount: null,
+                                    imageUrl: "/img/pink (1)-1397x1397.jpeg.webp"
+                                }
+                            ]
+                        });
+                        break;
+                    case 'gaming-kb':
+                    case 'keyboards':
+                        resolve({
+                            title: "Клавіатури",
+                            slug: "gaming-kb",
+                            products: [
+                                {
+                                    id: "kb-1",
+                                    title: "Клавіатура механічна ігрова RGB",
+                                    slug: "kb-gaming-rgb",
+                                    price: 3199,
+                                    rating: 5,
+                                    discount: null,
+                                    imageUrl: "/img/gaming-micefull.png.webp"
+                                }
+                            ]
+                        });
+                        break;
+                    case 'apple':
+                        resolve({
+                            title: "Apple",
+                            slug: "apple",
+                            products: [
+                                {
+                                    id: "1",
+                                    title: "Apple iPhone 17 Pro Max 256GB (Cosmic Orange)",
+                                    slug: "apple-iphone-17-pro-max-256gb-orange",
+                                    price: 73499,
+                                    discount: 6050,
+                                    rating: 5,
+                                    imageUrl: "/img/CosmicOrange-1397x1397.png.webp"
+                                },
+                                {
+                                    id: "2",
+                                    title: "Apple AirPods Pro 3 (MFHP4) (2025)",
+                                    slug: "navushnyky-apple-airpods-pro-3",
+                                    price: 11899,
+                                    discount: 2200,
+                                    rating: 5,
+                                    imageUrl: "/img/big-center-airpods-2025full.png.webp"
+                                }
+                            ]
+                        });
+                        break;
+                    default:
+                        resolve({
+                            title: slug,
+                            slug: slug,
+                            products: [
+                                {
+                                    id: "1",
+                                    title: "Товар розділу " + slug,
+                                    slug: slug + "-item-1",
+                                    price: 1999,
+                                    discount: 200,
+                                    rating: 5,
+                                    imageUrl: "/img/gaming-micefull.png.webp"
+                                }
+                            ]
+                        });
                 }
-            }, 300);
+            }, 50);
         });
     }
-
 }

@@ -57,7 +57,8 @@ export default class UserDao {
             .then(r => r.json())
             .then(j => {
                 console.log(j);
-                if (j.status == 200) {
+                const isOk = j.status === 200 || (j.status && (j.status.code === 200 || j.status.isOk));
+                if (isOk) {
                     const payload = JSON.parse(
                         Base64.decodeUrl(
                             j.data.split('.')[1]));
