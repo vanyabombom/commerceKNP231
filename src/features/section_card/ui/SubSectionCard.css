@@ -1,29 +1,29 @@
-﻿/* Стилізація карток підгруп товарних груп */
+/* Стилізація карток підгруп товарних груп */
 .subsection-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(145deg, #25252a 0%, #1a1a1e 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(145deg, #202127 0%, #15161a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: 12px;
-    padding: 10px 8px 10px 8px;
+    padding: 12px 10px;
     text-decoration: none;
     color: inherit;
     position: relative;
     overflow: hidden;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     width: 100%;
     box-sizing: border-box;
     cursor: pointer;
 }
 
 .subsection-card:hover {
-    background: linear-gradient(145deg, #2d2d35 0%, #222228 100%);
-    border-color: #3b82f6;
+    background: linear-gradient(145deg, #272832 0%, #1b1c22 100%);
+    border-color: #6366f1;
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
+    box-shadow: 0 8px 22px rgba(99, 102, 241, 0.22);
 }
 
 .subsection-badge {
@@ -32,10 +32,10 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.6px;
-    color: #93c5fd;
-    background: rgba(59, 130, 246, 0.15);
-    border: 1px solid rgba(59, 130, 246, 0.35);
-    padding: 2px 6px;
+    color: #a5b4fc;
+    background: rgba(99, 102, 241, 0.16);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    padding: 2px 7px;
     border-radius: 6px;
     margin-bottom: 6px;
     line-height: 1;
@@ -55,50 +55,27 @@
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.45));
     transition: transform 0.3s ease;
 }
 
 .subsection-card:hover .subsection-img-wrapper img {
-    transform: scale(1.08);
-}
-
-.subsection-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    width: 100%;
-    margin-top: 6px;
+    transform: scale(1.06);
 }
 
 .subsection-title {
-    color: #f1f5f9;
-    font-size: 0.85rem;
+    font-size: 0.92rem;
     font-weight: 600;
+    color: #f1f5f9;
     text-align: center;
-    white-space: nowrap;
+    margin-top: 8px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 85%;
-    line-height: 1.2;
-    transition: color 0.2s ease;
 }
 
 .subsection-card:hover .subsection-title {
-    color: #60a5fa;
-}
-
-.subsection-arrow {
-    font-size: 0.85rem;
-    color: #64748b;
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: all 0.2s ease;
-}
-
-.subsection-card:hover .subsection-arrow {
-    opacity: 1;
-    transform: translateX(0);
-    color: #60a5fa;
+    color: #a5b4fc;
 }
